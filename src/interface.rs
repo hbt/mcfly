@@ -440,7 +440,7 @@ impl<'a> Interface<'a> {
     fn select_with_emacs_key_scheme(&mut self, k: Key) -> bool {
         match k {
             Key::Char('\n') | Key::Char('\r') | Key::Ctrl('j') => {
-                self.run = true;
+                self.run = false;
                 self.accept_selection();
                 return true;
             }
