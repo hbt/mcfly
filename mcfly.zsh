@@ -98,3 +98,17 @@ if [[ $- =~ .*i.* ]]; then
   zle -N mcfly-history-widget
   bindkey '^R' mcfly-history-widget
 fi
+
+
+#zle -N mcfly-history-widget-custom-sql
+#mcfly-history-widget-custom-sql()  {
+#export MCFLY_SQL="and exit_code = 0"
+#mcfly-history-widget
+#}
+#bindkey '^[r' mcfly-history-widget-custom-sql
+#zle -N mcfly-history-widget2
+#mcfly-history-widget2() {
+#export MCFLY_SQL=""
+#mcfly-history-widget
+#}
+#bindkey '^R' mcfly-history-widget2

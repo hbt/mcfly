@@ -14,6 +14,7 @@ use crate::simplified_command::SimplifiedCommand;
 use itertools::Itertools;
 use rusqlite::types::ToSql;
 use std::time::{Instant, SystemTime, UNIX_EPOCH};
+use std::env;
 
 #[derive(Debug, Clone, Default)]
 pub struct Features {
@@ -255,15 +256,18 @@ impl History {
             ResultSort::LastRun => "last_run",
             _ => "rank",
         };
-
+        
+        let sql = env::var("MCFLY_SQL").unwrap();
+        
         let query: &str = &format!(
-            "{} {} {} {}",
+            "{} {} {} {} {}",
             "SELECT id, cmd, cmd_tpl, session_id, when_run, exit_code, selected, dir, rank,
                 age_factor, length_factor, exit_factor, recent_failure_factor,
                 selected_dir_factor, dir_factor, overlap_factor, immediate_overlap_factor,
                 selected_occurrences_factor, occurrences_factor, last_run
             FROM contextual_commands
             WHERE cmd LIKE (:like)",
+            sql,
             "ORDER BY",
             order_by_column,
             "DESC LIMIT :limit"
